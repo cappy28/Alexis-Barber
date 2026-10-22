@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="rose"><!-- 👉 Après Octobre Rose : data-theme="chrome" -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alexis Barber · Barber Shop & Lounge à Arras</title>
+<meta name="description" content="Alexis Barber, deux barber shops à Arras avec lounge : billard, PS5, fléchettes. Coupes homme, barbe, rituels serviette chaude. Réservation en ligne.">
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Yellowtail&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ LOADER : ring light ============ -->
+<div id="loader">
+  <div class="loader-ring">
+    <svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="72"/></svg>
+    <div class="loader-logo"><span>Alexis</span><img src="images/logo.png" alt="" onerror="this.remove()"></div>
+  </div>
+  <p>Barber · Arras</p>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a href="#top" class="brand">
+    <span class="brand-img"><span>A</span><img src="images/logo.png" alt="Alexis Barber" onerror="this.remove()"></span>
+    <span class="brand-txt"><em>Alexis</em><b>BARBER</b></span>
+  </a>
+  <ul class="links" id="links">
+    <li><a href="#salon">Le Salon</a></li>
+    <li><a href="#lounge">Le Lounge</a></li>
+    <li><a href="#tarifs">Tarifs</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#adresses">Adresses</a></li>
+    <li class="links-cta"><a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-accent">Réserver</a></li>
+  </ul>
+  <a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-accent nav-cta">Réserver</a>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ============ HERO : plafond hexagonal ============ -->
+<header class="hero" id="top">
+  <canvas id="hex" aria-hidden="true"></canvas>
+  <div class="hero-shade" aria-hidden="true"></div>
+
+  <div class="hero-in">
+    <p class="rose-only rose-pill"><span>🎀</span> Octobre Rose · le salon se met en rose</p>
+    <div class="hero-logo">
+      <span class="hero-logo-fallback"><em>Alexis</em><b>BARBER</b></span>
+      <img src="images/logo.png" alt="Logo Alexis Barber" onerror="this.remove()">
+    </div>
+    <h1>
+      <span class="chrome-text">Coupe. Barbe.</span>
+      <span class="accent-text">Lounge.</span>
+    </h1>
+    <p class="hero-sub">Deux barber shops au cœur d'Arras.<br>Billard, PS5 et fléchettes en attendant votre tour.</p>
+    <div class="cta">
+      <a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-accent">Prendre rendez-vous</a>
+      <a href="#tarifs" class="btn btn-ghost">Voir les tarifs</a>
+    </div>
+  </div>
+
+  <div class="hero-rating ring-light">
+    <b>4,9</b><span class="stars">★★★★★</span><small>350 avis Planity</small>
+  </div>
+  <a href="#salon" class="scroll" aria-label="Défiler"><span></span></a>
+</header>
+
+<!-- ============ BANDEAU ============ -->
+<div class="strip" aria-hidden="true"><div class="strip-track">
+  <span>Coupe homme</span><span>Taille de barbe</span><span>Serviette chaude</span><span>Billard</span><span>PS5</span><span>Fléchettes</span><span>Soin vapeur</span><span>Offre duo</span>
+  <span>Coupe homme</span><span>Taille de barbe</span><span>Serviette chaude</span><span>Billard</span><span>PS5</span><span>Fléchettes</span><span>Soin vapeur</span><span>Offre duo</span>
+</div></div>
+
+<!-- ============ LE SALON ============ -->
+<section class="salon" id="salon">
+  <div class="wrap salon-grid">
+    <div class="salon-visual rv">
+      <div class="deco-ring" aria-hidden="true"></div>
+      <div class="led led-big"><div class="ph"><img src="images/hero.jpg" alt="Intérieur du salon Alexis Barber" onerror="this.remove()"></div></div>
+      <div class="led led-small"><div class="ph"><img src="images/alexis.jpg" alt="Alexis, barbier" onerror="this.remove()"></div></div>
+    </div>
+
+    <div class="salon-text">
+      <div class="head left rv">
+        <span class="tag">01 · Le Salon</span>
+        <h2>Noir, blanc,<br><em>lumière.</em></h2>
+      </div>
+      <p class="rv d1">Chez <strong>Alexis Barber</strong>, on lève les yeux avant de s'asseoir : un plafond de néons hexagonaux, des miroirs cerclés de LED et des fauteuils chromés.</p>
+      <p class="rv d1">Ici, on prend le temps : coupe sur mesure, barbe nette, serviette chaude et soin vapeur. Avant chaque coupe, on échange sur votre style.</p>
+      <ul class="chips rv d2">
+        <li>Miroirs LED</li><li>Fauteuils chromés</li><li>Sur rendez-vous</li><li>Café & boissons</li>
+      </ul>
+      <div class="stats rv d3">
+        <div><b data-count="4.9" data-dec="1">0</b><small>Note moyenne</small></div>
+        <div><b data-count="350">0</b><small>Avis clients</small></div>
+        <div><b data-count="2">0</b><small>Salons à Arras</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LE LOUNGE ============ -->
+<section class="lounge" id="lounge">
+  <div class="wrap lounge-grid">
+    <div class="marble rv">
+      <span class="tag tag-dark">02 · Le Lounge</span>
+      <h2>Ici, on ne fait pas<br>qu'<em>attendre</em>.</h2>
+      <p>Chaque salon Alexis Barber a son propre espace détente. Une partie de billard, un match sur PS5 ou quelques fléchettes, puis on passe au fauteuil.</p>
+      <p class="marble-note">Dans nos deux salons · Saint-Aubert &amp; Gambetta</p>
+    </div>
+    <div class="led lounge-img rv d1">
+      <div class="ph"><img src="images/salon-2.jpg" alt="L'espace lounge avec billard" style="object-position:100% 50%" onerror="this.remove()"></div>
+    </div>
+  </div>
+
+  <div class="wrap amen">
+    <div class="am rv">
+      <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="7"/><text x="24" y="28" text-anchor="middle">8</text></svg>
+      <h3>Billard</h3><p>Une partie entre potes avant la coupe.</p>
+    </div>
+    <div class="am rv d1">
+      <svg viewBox="0 0 48 48"><path d="M14 17h20a8 8 0 0 1 8 8v5a5 5 0 0 1-9 3l-3-4H18l-3 4a5 5 0 0 1-9-3v-5a8 8 0 0 1 8-8z"/><path d="M15 22v6M12 25h6"/><circle cx="32" cy="23" r="1.4"/><circle cx="35" cy="27" r="1.4"/></svg>
+      <h3>PS5</h3><p>Sur grand écran.</p>
+    </div>
+    <div class="am rv d2">
+      <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="11"/><circle cx="24" cy="24" r="5"/><path d="M24 24l14-14M34 10h4v4"/></svg>
+      <h3>Fléchettes</h3><p>Sur le mur végétal.</p>
+    </div>
+    <div class="am rv d3">
+      <svg viewBox="0 0 48 48"><path d="M24 40c-7 0-11-5-11-10 0-7 7-9 7-17 4 3 5 6 5 9 2-2 3-4 3-6 4 4 7 8 7 14 0 5-4 10-11 10z"/></svg>
+      <h3>Cheminée</h3><p>Fauteuils bouclés, ambiance cosy.</p>
+    </div>
+    <div class="am rv d3">
+      <svg viewBox="0 0 48 48"><path d="M10 18h24v12a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10z"/><path d="M34 21h3a5 5 0 0 1 0 10h-3"/><path d="M17 6c-2 3 2 5 0 8M23 6c-2 3 2 5 0 8M29 6c-2 3 2 5 0 8"/></svg>
+      <h3>Café</h3><p>Une boisson à l'accueil.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TARIFS ============ -->
+<section class="tarifs" id="tarifs">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag">03 · La Carte</span>
+      <h2>Prestations &amp; <em>tarifs</em></h2>
+    </div>
+
+    <div class="pgroup rv">
+      <h3 class="pg-title">Coupes &amp; barbe</h3>
+      <div class="cards">
+        <article class="card"><div class="c-top"><h4>Coupe</h4><span class="c-price">20<sup>€</sup></span></div><p>Coupe homme sur mesure</p><span class="c-dur">25 min</span></article>
+        <article class="card"><div class="c-top"><h4>Coupe + Shampoing</h4><span class="c-price">25<sup>€</sup></span></div><p>La coupe, avec un shampoing</p><span class="c-dur">30 min</span></article>
+        <article class="card"><div class="c-top"><h4>Taille de barbe</h4><span class="c-price">12<sup>€</sup></span></div><p>Contours nets et précis</p><span class="c-dur">20 min</span></article>
+        <article class="card"><div class="c-top"><h4>Coupe −18 ans</h4><span class="c-price">18<sup>€</sup></span></div><p>Ados &amp; étudiants</p><span class="c-dur">25 min</span></article>
+        <article class="card"><div class="c-top"><h4>Coupe enfant −10 ans</h4><span class="c-price">15<sup>€</sup></span></div><p>Pour les plus jeunes</p><span class="c-dur">25 min</span></article>
+      </div>
+    </div>
+
+    <div class="pgroup rv">
+      <h3 class="pg-title">Les rituels</h3>
+      <div class="cards cards-2">
+        <article class="card"><div class="c-top"><h4>Le Rituel</h4><span class="c-price">40<sup>€</sup></span></div><p>Coupe + barbe + serviette chaude + vapeur et soin</p><span class="c-dur">1 h</span></article>
+        <article class="card card-star"><span class="badge">Signature</span><div class="c-top"><h4>Le Grand Rituel</h4><span class="c-price">50<sup>€</sup></span></div><p>Coupe + barbe + shampoing + serviette chaude + vapeur et soin</p><span class="c-dur">1 h 15</span></article>
+      </div>
+    </div>
+
+    <div class="pgroup rv">
+      <h3 class="pg-title">Offre duo</h3>
+      <div class="cards cards-2">
+        <article class="card"><div class="c-top"><h4>Coupe duo</h4><span class="c-price">30<sup>€</sup></span></div><p>Pour 2 personnes</p><span class="c-dur">50 min</span></article>
+        <article class="card"><div class="c-top"><h4>Coupe + barbe duo</h4><span class="c-price">40<sup>€</sup></span></div><p>Pour 2 personnes</p><span class="c-dur">1 h 10</span></article>
+      </div>
+    </div>
+
+    <div class="duo rv">
+      <div>
+        <h3>Venez à deux, <em>payez moins.</em></h3>
+        <p>15 € la coupe par personne · +5 € pour la barbe ou le shampoing.</p>
+      </div>
+      <a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-accent">Réserver à deux</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERIE ============ -->
+<section class="galerie" id="galerie">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag">04 · Galerie</span>
+      <h2>Le travail <em>parle</em></h2>
+    </div>
+    <div class="grid">
+      <figure class="led g tall rv"><div class="ph"><img src="images/coupe-1.jpg" alt="Réalisation Alexis Barber" onerror="this.remove()"></div></figure>
+      <figure class="led g wide rv d1"><div class="ph"><img src="images/coupe-2.jpg" alt="Réalisation Alexis Barber" onerror="this.remove()"></div></figure>
+      <figure class="led g rv d1"><div class="ph"><img src="images/coupe-3.jpg" alt="Réalisation Alexis Barber" onerror="this.remove()"></div></figure>
+      <figure class="led g rv d2"><div class="ph"><img src="images/coupe-4.jpg" alt="Réalisation Alexis Barber" onerror="this.remove()"></div></figure>
+      <figure class="led g wide rv"><div class="ph"><img src="images/coupe-5.jpg" alt="Réalisation Alexis Barber" onerror="this.remove()"></div></figure>
+      <figure class="led g rv d1"><div class="ph"><img src="images/coupe-6.jpg" alt="Réalisation Alexis Barber" onerror="this.remove()"></div></figure>
+    </div>
+  </div>
+</section>
+
+<div id="lightbox" aria-hidden="true">
+  <button class="lb-close" aria-label="Fermer">✕</button>
+  <button class="lb-prev" aria-label="Précédent">←</button>
+  <div class="lb-led"><img alt=""></div>
+  <button class="lb-next" aria-label="Suivant">→</button>
+</div>
+
+<!-- ============ ADRESSES ============ -->
+<section class="adresses" id="adresses">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag">05 · Nos adresses</span>
+      <h2>Deux salons, <em>un style</em></h2>
+    </div>
+    <div class="shops">
+      <article class="shop rv">
+        <div class="led"><div class="ph"><img src="images/salon-1.jpg" alt="Alexis Barber, rue Saint-Aubert" onerror="this.remove()"></div></div>
+        <div class="shop-body">
+          <span class="shop-num">I</span>
+          <h3>Saint-Aubert</h3>
+          <p class="addr">70 Rue Saint-Aubert, 62000 Arras</p>
+          <ul><li><b>★ 4,9</b> · 350 avis</li><li><a href="tel:+33321242673">03 21 24 26 73</a></li><li>Lounge : billard · PS5 · fléchettes</li></ul>
+          <a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-ghost">Réserver ici</a>
+        </div>
+      </article>
+      <article class="shop rv d1">
+        <div class="led"><div class="ph"><img src="images/salon-2.jpg" alt="Alexis Barber 2, rue Gambetta" style="object-position:0% 50%" onerror="this.remove()"></div></div>
+        <div class="shop-body">
+          <span class="shop-num">II</span>
+          <h3>Gambetta</h3>
+          <p class="addr">62 Rue Gambetta, 62000 Arras</p>
+          <ul><li><b>★ 5,0</b> · 23 avis</li><li>Même équipe, même exigence</li><li>Lounge : billard · PS5 · fléchettes</li></ul>
+          <a href="https://www.planity.com/alexis-barber-2-62000-arras" target="_blank" rel="noopener" class="btn btn-ghost">Réserver ici</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HORAIRES ============ -->
+<section class="infos" id="infos">
+  <div class="wrap infos-grid">
+    <div class="hours rv">
+      <div class="neon-box">
+        <span class="neon" id="neon">…</span>
+        <small id="neonSub"></small>
+      </div>
+      <h2>Horaires <span>· Saint-Aubert</span></h2>
+      <ul id="hours"></ul>
+      <div class="contact">
+        <a class="tel" href="tel:+33321242673">03 21 24 26 73</a>
+        <span>Uniquement sur rendez-vous</span>
+      </div>
+    </div>
+    <div class="led map rv d1">
+      <iframe loading="lazy" title="Plan d'accès Alexis Barber" src="https://maps.google.com/maps?q=70%20Rue%20Saint-Aubert%2C%2062000%20Arras&z=16&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="final">
+  <div class="bigring rv">
+    <div class="bigring-in">
+      <span class="tag">Réservation</span>
+      <h2>Votre fauteuil<br><em>vous attend.</em></h2>
+      <p>En ligne 24 h/24, confirmation immédiate.</p>
+      <a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-accent">Réserver maintenant</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <a href="#top" class="foot-logo"><span>Alexis</span><img src="images/logo.png" alt="Alexis Barber" onerror="this.remove()"></a>
+    <nav class="foot-links">
+      <a href="#salon">Le Salon</a><a href="#lounge">Le Lounge</a><a href="#tarifs">Tarifs</a><a href="#adresses">Adresses</a>
+      <a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener">Planity</a>
+    </nav>
+    <p class="foot-addr">70 Rue Saint-Aubert · 62 Rue Gambetta · 62000 Arras</p>
+    <p class="copy">© <span id="y"></span> Alexis Barber · Tous droits réservés</p>
+  </div>
+</footer>
+
+<a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="fab" id="fab" aria-label="Réserver">✂</a>
+
+<script src="script.js"></script>
+</body>
+</html>
