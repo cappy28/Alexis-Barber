@@ -762,3 +762,13 @@ body.menu-open .nav{backdrop-filter:none;-webkit-backdrop-filter:none;background
 @media (max-width:700px){
   .gal-fix{grid-template-columns:repeat(2,1fr) !important}
 }
+
+/* ===== v11 · Bannière logo entière dans le cadre LED ===== */
+.salon img[src*="hero"]{
+  object-fit:contain !important;
+  object-position:50% 50% !important;
+  background:#000;
+  box-sizing:border-box;
+  padding:0 6%;
+}
+.salon :has(> img[src*="hero"]){background:#000}
