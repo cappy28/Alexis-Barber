@@ -325,3 +325,37 @@ footer{border-top:1px solid var(--line);padding:70px 5vw 40px;text-align:center;
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}
   .rv{opacity:1;transform:none}
 }
+
+/* =========================================================
+   NOUVEAU LOGO (couronne chrome) : à coller à la fin
+   ========================================================= */
+
+/* Chrome plus "métal poli" */
+html[data-theme="chrome"]{--accent:#d6d6d6;--accent-2:#ffffff;--accent-3:#737373;--accent-rgb:255,255,255}
+
+/* Le texte de secours ne s'affiche que si logo.png est absent */
+.loader-logo:has(img) > span,
+.brand-img:has(img) > span,
+.hero-logo:has(img) > .hero-logo-fallback,
+.foot-logo:has(img) > span{display:none}
+
+/* Logo affiché en entier, plus de recadrage rond */
+.loader-logo img,.brand-img img,.foot-logo img{
+  object-fit:contain;transform:none;top:8%;left:8%;width:84%;height:84%}
+
+/* Pastilles noires : le fond noir du logo s'y fond parfaitement */
+.loader-logo{background:#000}
+.brand-img{width:54px;height:54px;background:#000;
+  box-shadow:0 0 0 1px rgba(255,255,255,.35),0 0 16px rgba(255,255,255,.15)}
+.foot-logo{width:140px;height:140px;background:#000;
+  box-shadow:0 0 0 1px rgba(255,255,255,.3),0 0 40px rgba(255,255,255,.12)}
+
+/* HERO : logo dans un disque noir encadré d'un ring light,
+   comme les anneaux lumineux du salon */
+.hero-logo{width:min(420px,80vw,52vh);-webkit-mask-image:none;mask-image:none;filter:none}
+.hero-logo::before{content:"";position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle,#000 0 60%,rgba(0,0,0,.85) 66%,transparent 71%)}
+.hero-logo img{top:21%;left:21%;width:58%;height:58%;object-fit:contain;transform:none;z-index:1}
+.hero-logo::after{content:"";position:absolute;inset:6%;z-index:2;border-radius:50%;
+  border:3px solid #fff;box-shadow:var(--led),inset 0 0 12px rgba(255,255,255,.5);
+  opacity:0;animation:ledOn 1.4s 1.6s forwards}
