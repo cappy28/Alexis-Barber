@@ -1,9 +1,54 @@
-// ===== Loader =====
-let hexStart = () => {};
-addEventListener('load', () => setTimeout(() => {
-  document.body.classList.add('loaded');
-  hexStart();
-}, 1500));
+// ================== ALEXIS BARBER · script.js ==================
+const root = document.documentElement;
+const PASSWORD = 'Alexis-site-code-barber';
+
+// ===== Lancement (loader + plafond hexagonal) =====
+let launched = false;
+function launch(delay = 0) {
+  if (launched) return; launched = true;
+  setTimeout(() => { document.body.classList.add('loaded'); initHex(); }, delay);
+}
+if (!root.classList.contains('locked')) {
+  addEventListener('load', () => launch(1500));
+  setTimeout(() => launch(0), 4000); // sécurité
+}
+
+// ===== Écran mot de passe =====
+(() => {
+  const gate = document.getElementById('gate'); if (!gate) return;
+  if (!root.classList.contains('locked')) { gate.remove(); return; }
+  const form = document.getElementById('gateForm'), input = document.getElementById('gatePass'),
+        err = document.getElementById('gateErr'), eye = document.getElementById('gateEye');
+
+  if (matchMedia('(hover:hover)').matches) setTimeout(() => input.focus(), 400); // pas de clavier forcé sur mobile
+
+  eye.addEventListener('click', () => {
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    eye.classList.toggle('on', show);
+    eye.setAttribute('aria-label', show ? 'Masquer le mot de passe' : 'Afficher le mot de passe');
+  });
+  input.addEventListener('input', () => { err.textContent = ''; });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (input.value.trim() === PASSWORD) {
+      try { localStorage.setItem('ab-access', 'ok'); } catch (_) {}
+      input.blur();
+      document.body.classList.add('loaded');
+      gate.classList.add('leaving');
+      root.classList.remove('locked');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      launch(0);
+      setTimeout(() => gate.remove(), 900);
+    } else {
+      err.textContent = 'Mot de passe incorrect';
+      form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake');
+      input.select();
+      if (navigator.vibrate) navigator.vibrate(120);
+    }
+  });
+})();
 
 // ===== Nav & bouton flottant =====
 const nav = document.getElementById('nav'), fab = document.getElementById('fab');
@@ -15,13 +60,15 @@ addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
 // ===== Menu mobile =====
 const burger = document.getElementById('burger'), links = document.getElementById('links');
-const closeMenu = () => { burger.classList.remove('open'); links.classList.remove('open'); document.body.style.overflow = ''; };
-burger.addEventListener('click', () => {
-  const open = !links.classList.contains('open');
-  burger.classList.toggle('open', open); links.classList.toggle('open', open);
+const setMenu = open => {
+  burger.classList.toggle('open', open);
+  links.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
   document.body.style.overflow = open ? 'hidden' : '';
-});
-links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+};
+burger.addEventListener('click', () => setMenu(!links.classList.contains('open')));
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('resize', () => { if (innerWidth > 1050) setMenu(false); });
 
 // ===== Apparition au scroll + compteurs =====
 const io = new IntersectionObserver(entries => entries.forEach(e => {
@@ -37,28 +84,30 @@ const io = new IntersectionObserver(entries => entries.forEach(e => {
     requestAnimationFrame(step);
   });
   io.unobserve(e.target);
-}), { threshold: .15 });
+}), { threshold: .12 });
 document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
-// ===== Plafond hexagonal lumineux (comme au salon) =====
-(() => {
-  const cv = document.getElementById('hex'); if (!cv) return;
+// ===== Plafond hexagonal lumineux =====
+function initHex() {
+  const cv = document.getElementById('hex');
+  if (!cv || cv.dataset.on) return; cv.dataset.on = '1';
   const ctx = cv.getContext('2d'), hero = document.getElementById('top');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let W = 0, H = 0, R = 50, cells = [], mx = -9999, my = -9999, start = 0, raf = null, visible = true, started = false;
-  let ACC = getComputedStyle(document.documentElement).getPropertyValue('--accent-rgb').trim() || '255,255,255';
+  const touch = !matchMedia('(hover:hover)').matches;
+  const ACC = getComputedStyle(root).getPropertyValue('--accent-rgb').trim() || '255,255,255';
+  let W = 0, H = 0, R = 50, cells = [], mx = -9999, my = -9999, raf = null, visible = true;
+  const start = performance.now();
 
   function build() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     W = cv.clientWidth; H = cv.clientHeight;
     cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    R = W < 700 ? 34 : 52;
+    R = W < 700 ? 30 : 52;
     const w = Math.sqrt(3) * R, h = 1.5 * R, diag = Math.hypot(W, H);
     cells = [];
     for (let row = -1; row * h < H + R; row++) {
       for (let col = -1; col * w < W + w; col++) {
         const x = col * w + (row % 2 ? w / 2 : 0), y = row * h;
-        // s'allument depuis le centre vers les bords, avec un peu de hasard
         cells.push({ x, y, d: Math.hypot(x - W / 2, y - H / 2) / diag * 1600 + Math.random() * 700, p: Math.random() * 6.28 });
       }
     }
@@ -67,19 +116,20 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
     ctx.beginPath();
     for (let i = 0; i < 6; i++) {
       const a = Math.PI / 180 * (60 * i - 30);
-      const px = x + r * Math.cos(a), py = y + r * Math.sin(a);
-      i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+      i ? ctx.lineTo(x + r * Math.cos(a), y + r * Math.sin(a)) : ctx.moveTo(x + r * Math.cos(a), y + r * Math.sin(a));
     }
     ctx.closePath();
   }
   function draw(now) {
     const t = now - start;
+    // Sur téléphone (pas de souris), une lumière se balade toute seule
+    if (touch && !reduce) { mx = W / 2 + W * .42 * Math.sin(now / 2600); my = H / 2 + H * .38 * Math.sin(now / 1700); }
     ctx.clearRect(0, 0, W, H);
     for (const c of cells) {
       let on = reduce ? 1 : Math.min(Math.max((t - c.d) / 350, 0), 1);
       if (on <= 0) continue;
-      if (on < 1 && Math.random() < .35) on *= .2;            // grésillement à l'allumage
-      const near = Math.max(0, 1 - Math.hypot(c.x - mx, c.y - my) / 240);
+      if (on < 1 && Math.random() < .35) on *= .2; // grésillement à l'allumage
+      const near = Math.max(0, 1 - Math.hypot(c.x - mx, c.y - my) / (touch ? 180 : 240));
       const a = on * (.24 + .08 * Math.sin(now / 1600 + c.p)) + near * .75;
       hexPath(c.x, c.y, R * .86);
       ctx.lineWidth = 10; ctx.strokeStyle = `rgba(${near > 0 ? ACC : '255,255,255'},${(a * .16).toFixed(3)})`; ctx.stroke();
@@ -87,20 +137,24 @@ document.querySelectorAll('.rv').forEach(el => io.observe(el));
     }
     raf = (!reduce && visible) ? requestAnimationFrame(draw) : null;
   }
-  const run = () => { if (!raf) raf = requestAnimationFrame(draw); };
+  const run = () => { if (!raf && visible) raf = requestAnimationFrame(draw); };
 
-  build();
-  hexStart = () => { if (started) return; started = true; start = performance.now(); run(); };
-  setTimeout(hexStart, 4200); // sécurité si le load tarde
+  build(); run();
 
-  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { build(); if (started) run(); }, 150); });
-  hero.addEventListener('pointermove', e => {
-    const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top;
-    if (reduce && started) requestAnimationFrame(draw);
+  let rt;
+  addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => { if (cv.clientWidth !== W || cv.clientHeight !== H) { build(); run(); } }, 200);
   });
-  hero.addEventListener('pointerleave', () => { mx = my = -9999; });
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && started) run(); }).observe(hero);
-})();
+  if (!touch) {
+    hero.addEventListener('pointermove', e => {
+      const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top;
+      if (reduce) requestAnimationFrame(draw);
+    });
+    hero.addEventListener('pointerleave', () => { mx = my = -9999; });
+  }
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) run(); }).observe(hero);
+}
 
 // ===== Horaires + néon Ouvert/Fermé =====
 const HOURS = { 0: null, 1: [10, 20], 2: [10, 20], 3: [10, 20], 4: [10, 20], 5: [10, 23], 6: [10, 20] };
@@ -128,19 +182,20 @@ if (HOURS[d] && h >= HOURS[d][0] && h < HOURS[d][1]) {
   }
 }
 
-// ===== Lightbox galerie =====
+// ===== Lightbox galerie (+ glisser du doigt sur mobile) =====
 const lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img');
 let idx = 0;
 const gImgs = () => [...document.querySelectorAll('.g img')];
 const show = i => {
   const list = gImgs(); if (!list.length) return;
   idx = (i + list.length) % list.length;
-  lbImg.src = list[idx].src; lb.classList.add('open');
+  lbImg.src = list[idx].src;
+  lb.classList.add('open'); document.body.style.overflow = 'hidden';
 };
+const closeLb = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
 document.querySelectorAll('.g').forEach(g => g.addEventListener('click', () => {
   const im = g.querySelector('img'); if (im) show(gImgs().indexOf(im));
 }));
-const closeLb = () => lb.classList.remove('open');
 lb.querySelector('.lb-close').onclick = closeLb;
 lb.querySelector('.lb-prev').onclick = e => { e.stopPropagation(); show(idx - 1); };
 lb.querySelector('.lb-next').onclick = e => { e.stopPropagation(); show(idx + 1); };
@@ -151,5 +206,11 @@ addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') show(idx + 1);
   if (e.key === 'ArrowLeft') show(idx - 1);
 });
+let sx = 0;
+lb.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+lb.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - sx;
+  if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1));
+}, { passive: true });
 
 document.getElementById('y').textContent = new Date().getFullYear();
