@@ -772,3 +772,30 @@ body.menu-open .nav{backdrop-filter:none;-webkit-backdrop-filter:none;background
   padding:0 6%;
 }
 .salon :has(> img[src*="hero"]){background:#000}
+
+/* ===== v11 · Réseaux sociaux ===== */
+.socials{background:var(--bg,#0a0a0a);color:#fff;padding:clamp(70px,10vw,130px) 0;position:relative;overflow:hidden}
+.socials::before{content:"";position:absolute;inset:auto -20% -60% -20%;height:80%;background:radial-gradient(closest-side,rgba(255,255,255,.08),transparent);pointer-events:none}
+.soc-wrap{width:min(1100px,90%);margin:0 auto;text-align:center;position:relative}
+.soc-kicker{font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted,#999);margin:0 0 14px}
+.soc-title{font-size:clamp(2.2rem,6vw,4rem);font-weight:900;text-transform:uppercase;line-height:1;margin:0}
+.soc-title span{font-family:var(--f-script,'Yellowtail',cursive);font-weight:400;text-transform:none;display:block;font-size:1.1em;margin-top:.1em;text-shadow:0 0 18px rgba(255,255,255,.55)}
+.soc-sub{color:var(--muted,#aaa);margin:18px auto 46px;max-width:480px}
+.soc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2vw,24px)}
+.soc-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:34px 16px 28px;border-radius:22px;
+  background:linear-gradient(160deg,#1a1a1a,#0d0d0d);border:1px solid rgba(255,255,255,.12);color:#fff;text-decoration:none;
+  transition:transform .4s var(--ease,ease),border-color .4s,box-shadow .4s}
+.soc-card:hover,.soc-card:focus-visible{transform:translateY(-6px);border-color:rgba(255,255,255,.7);
+  box-shadow:0 0 0 1px rgba(255,255,255,.25),0 0 28px rgba(255,255,255,.25),inset 0 0 18px rgba(255,255,255,.06)}
+.soc-ico{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;margin-bottom:10px;
+  border:2px solid rgba(255,255,255,.85);box-shadow:0 0 14px rgba(255,255,255,.45),inset 0 0 10px rgba(255,255,255,.2)}
+.soc-ico svg{width:30px;height:30px}
+.soc-card b{font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
+.soc-card small{color:var(--muted,#999);font-size:.82rem}
+@media (max-width:700px){
+  .soc-grid{grid-template-columns:repeat(2,1fr)}
+  .soc-card{padding:26px 10px 22px}
+  .soc-ico{width:56px;height:56px}
+  .soc-ico svg{width:26px;height:26px}
+     }
+           
