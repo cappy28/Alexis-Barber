@@ -380,3 +380,35 @@ const REVIEWS = [
 
 // ----- Les boutons "Réserver à …" de l'équipe vont directement au bon salon -----
 document.querySelectorAll('a[data-direct]').forEach(a => a.addEventListener('click', e => e.stopPropagation()));
+
+/* ===== v10 · Galerie : détection auto + cases vides masquées ===== */
+(function(){
+  function galFix(){
+    var imgs=[].slice.call(document.querySelectorAll('img[src*="coupe-"]')).filter(function(i){
+      return !i.closest('.insta-grid,[class*="lightbox"],[id*="lightbox"],[class*="lb"],[id*="lb"]');
+    });
+    if(imgs.length<2) return;
+    var grid=imgs[0].parentElement;
+    while(grid && !imgs.every(function(i){return grid.contains(i);})) grid=grid.parentElement;
+    if(!grid) return;
+    grid.classList.add('gal-fix');
+    var items=[].slice.call(grid.children);
+    function update(){
+      var n=0;
+      items.forEach(function(it){
+        var im=it.matches('img')?it:it.querySelector('img');
+        var ok=!!im && it.contains(im) && !(im.complete && im.naturalWidth===0);
+        it.classList.toggle('gal-off',!ok);
+        if(ok) n++;
+      });
+      grid.style.setProperty('--cols', n===4?4:(n===2?2:3));
+    }
+    imgs.forEach(function(im){
+      im.addEventListener('error',function(){setTimeout(update,0);});
+      im.addEventListener('load',update);
+    });
+    update();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',galFix);
+  else galFix();
+})();
