@@ -38,11 +38,9 @@
       "image": "https://cappy28.github.io/Alexis-Barber/images/hero.jpg",
       "telephone": "+33321242673",
       "priceRange": "12€ - 50€",
+      "sameAs": ["https://www.instagram.com/alexis.barber62/"],
       "address": {"@type": "PostalAddress","streetAddress": "70 Rue Saint-Aubert","postalCode": "62000","addressLocality": "Arras","addressCountry": "FR"},
-      "openingHoursSpecification": [
-        {"@type": "OpeningHoursSpecification","dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Saturday"],"opens": "10:00","closes": "20:00"},
-        {"@type": "OpeningHoursSpecification","dayOfWeek": "Friday","opens": "10:00","closes": "23:00"}
-      ]
+      "openingHoursSpecification": [{"@type": "OpeningHoursSpecification","dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens": "10:00","closes": "20:00"}]
     },
     {
       "@type": "HairSalon",
@@ -50,12 +48,14 @@
       "url": "https://cappy28.github.io/Alexis-Barber/",
       "image": "https://cappy28.github.io/Alexis-Barber/images/salon-2.jpg",
       "priceRange": "12€ - 50€",
-      "address": {"@type": "PostalAddress","streetAddress": "62 Rue Gambetta","postalCode": "62000","addressLocality": "Arras","addressCountry": "FR"}
+      "sameAs": ["https://www.instagram.com/alexis.barber62/"],
+      "address": {"@type": "PostalAddress","streetAddress": "62 Rue Gambetta","postalCode": "62000","addressLocality": "Arras","addressCountry": "FR"},
+      "openingHoursSpecification": [{"@type": "OpeningHoursSpecification","dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens": "10:00","closes": "20:00"}]
     }
   ]
 }
 </script>
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <title>Alexis Barber · Barber Shop & Lounge à Arras</title>
 <meta name="description" content="Alexis Barber, deux barber shops à Arras avec lounge : billard, PS5, fléchettes. Coupes homme, barbe, rituels serviette chaude. Réservation en ligne.">
 <link rel="icon" href="images/logo.png">
@@ -102,13 +102,14 @@
     <span class="brand-txt"><em>Alexis</em><b>BARBER</b></span>
   </a>
   <ul class="links" id="links">
-    <li><a href="#salon">Le Salon</a></li>
-    <li><a href="#lounge">Le Lounge</a></li>
-    <li><a href="#tarifs">Tarifs</a></li>
-    <li><a href="#galerie">Galerie</a></li>
-    <li><a href="#adresses">Adresses</a></li>
-    <li class="links-cta"><a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-accent">Réserver</a></li>
-  </ul>
+  <li><a href="#salon">Le Salon</a></li>
+  <li><a href="#lounge">Le Lounge</a></li>
+  <li><a href="#tarifs">Tarifs</a></li>
+  <li><a href="#equipe">L'équipe</a></li>
+  <li><a href="#avis">Avis</a></li>
+  <li><a href="#adresses">Adresses</a></li>
+  <li class="links-cta"><a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-accent">Réserver</a></li>
+</ul>
   <a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-accent nav-cta">Réserver</a>
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
@@ -258,11 +259,50 @@
   </div>
 </section>
 
+<!-- ============ L'ÉQUIPE ============ -->
+<section class="equipe" id="equipe">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag">04 · L'équipe</span>
+      <h2>Huit barbiers, <em>deux salons</em></h2>
+    </div>
+
+    <figure class="led team-photo rv">
+      <div class="ph"><img src="images/equipe.jpg" alt="L'équipe Alexis Barber au complet" loading="lazy" onerror="this.remove()"></div>
+      <figcaption class="team-cap"><b>Alexis Barber</b><small>L'équipe au complet · Arras</small></figcaption>
+    </figure>
+
+    <div class="crews">
+      <article class="crew rv">
+        <div class="crew-head"><h3>Saint-Aubert</h3><span>Salon I</span></div>
+        <ul class="barbers">
+          <li class="barber"><i>A</i><div><b>Andy</b><small>Barbier</small></div></li>
+          <li class="barber"><i>M</i><div><b>Marceau</b><small>Barbier</small></div></li>
+          <li class="barber"><i>E</i><div><b>Emeric</b><small>Barbier</small></div></li>
+          <li class="barber"><i>J</i><div><b>Jordan</b><small>Barbier</small></div></li>
+        </ul>
+        <a href="https://www.planity.com/alexis-barber-62000-arras" data-direct target="_blank" rel="noopener" class="btn btn-ghost crew-btn">Réserver à Saint-Aubert</a>
+      </article>
+
+      <article class="crew rv d1">
+        <div class="crew-head"><h3>Gambetta</h3><span>Salon II</span></div>
+        <ul class="barbers">
+          <li class="barber"><i>A</i><div><b>Alexis</b><small>Fondateur</small></div></li>
+          <li class="barber"><i>M</i><div><b>Maxence</b><small>Barbier</small></div></li>
+          <li class="barber"><i>S</i><div><b>Saidou</b><small>Barbier</small></div></li>
+          <li class="barber"><i>Y</i><div><b>Yahia</b><small>Barbier</small></div></li>
+        </ul>
+        <a href="https://www.planity.com/alexis-barber-2-62000-arras" data-direct target="_blank" rel="noopener" class="btn btn-ghost crew-btn">Réserver à Gambetta</a>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ============ GALERIE ============ -->
 <section class="galerie" id="galerie">
   <div class="wrap">
     <div class="head rv">
-      <span class="tag">04 · Galerie</span>
+      <span class="tag">05 · Galerie</span>
       <h2>Le travail <em>parle</em></h2>
     </div>
     <div class="grid">
@@ -283,11 +323,36 @@
   <button class="lb-next" aria-label="Suivant">→</button>
 </div>
 
+<!-- ============ AVIS ============ -->
+<section class="avis" id="avis">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag">06 · Avis</span>
+      <h2>Ils en <em>parlent</em></h2>
+    </div>
+    <div class="rev-bar rv">
+      <div class="rev-score">
+        <b>4,9</b>
+        <div><span class="rstars" style="--r:4.9" aria-label="4,9 sur 5">★★★★★</span><small>350 avis · Planity</small></div>
+      </div>
+      <div class="rev-nav">
+        <button id="revPrev" aria-label="Avis précédent">←</button>
+        <button id="revNext" aria-label="Avis suivant">→</button>
+      </div>
+    </div>
+    <div class="rev-track rv" id="revTrack"></div>
+    <div class="rev-dots" id="revDots"></div>
+    <div class="rev-cta rv">
+      <a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-accent">À mon tour</a>
+    </div>
+  </div>
+</section>
+
 <!-- ============ ADRESSES ============ -->
 <section class="adresses" id="adresses">
   <div class="wrap">
     <div class="head rv">
-      <span class="tag">05 · Nos adresses</span>
+      <span class="tag">07 · Nos adresses</span>
       <h2>Deux salons, <em>un style</em></h2>
     </div>
     <div class="shops">
@@ -297,7 +362,7 @@
           <span class="shop-num">I</span>
           <h3>Saint-Aubert</h3>
           <p class="addr">70 Rue Saint-Aubert, 62000 Arras</p>
-          <ul><li><b>★ 4,9</b> · 350 avis</li><li><a href="tel:+33321242673">03 21 24 26 73</a></li><li>Lounge : billard · PS5 · fléchettes</li></ul>
+          <ul><li><b>★ 4,9</b> · 350 avis</li><li><a href="tel:+33321242673">03 21 24 26 73</a></li><li>Andy · Marceau · Emeric · Jordan</li><li>Lounge : billard · PS5 · fléchettes</li></ul>
           <a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="btn btn-ghost">Réserver ici</a>
         </div>
       </article>
@@ -307,7 +372,7 @@
           <span class="shop-num">II</span>
           <h3>Gambetta</h3>
           <p class="addr">62 Rue Gambetta, 62000 Arras</p>
-          <ul><li><b>★ 5,0</b> · 23 avis</li><li>Même équipe, même exigence</li><li>Lounge : billard · PS5 · fléchettes</li></ul>
+          <ul><li><b>★ 5,0</b> · 23 avis</li><li>Alexis · Maxence · Saidou · Yahia</li><li>Lounge : billard · PS5 · fléchettes</li></ul>
           <a href="https://www.planity.com/alexis-barber-2-62000-arras" target="_blank" rel="noopener" class="btn btn-ghost">Réserver ici</a>
         </div>
       </article>
@@ -323,7 +388,7 @@
         <span class="neon" id="neon">…</span>
         <small id="neonSub"></small>
       </div>
-      <h2>Horaires <span>· Saint-Aubert</span></h2>
+      <h2>Horaires <span>· Les deux salons</span></h2>
       <ul id="hours"></ul>
       <div class="contact">
         <a class="tel" href="tel:+33321242673">03 21 24 26 73</a>
@@ -333,6 +398,46 @@
     <div class="led map rv d1">
       <iframe loading="lazy" title="Plan d'accès Alexis Barber" src="https://maps.google.com/maps?q=70%20Rue%20Saint-Aubert%2C%2062000%20Arras&z=16&output=embed"></iframe>
     </div>
+  </div>
+</section>
+
+<!-- ============ FAQ (bientôt) ============ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="tag">FAQ</span>
+      <h2>Vos <em>questions</em></h2>
+    </div>
+    <div class="faq-box rv">
+      <div class="faq-stage">
+        <div class="faq-sk" aria-hidden="true">
+          <div style="--w:62%"></div><div style="--w:48%"></div><div style="--w:70%"></div><div style="--w:40%"></div>
+        </div>
+        <div class="faq-over"><span class="neon">Bientôt</span><small>La FAQ arrive très bientôt</small></div>
+      </div>
+      <p>Une question en attendant ? On vous répond avec plaisir.</p>
+      <div class="faq-actions">
+        <a href="tel:+33321242673" class="btn btn-ghost">Appeler</a>
+        <a href="https://ig.me/m/alexis.barber62" target="_blank" rel="noopener" class="btn btn-ghost">Écrire sur Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTAGRAM ============ -->
+<section class="insta" id="instagram">
+  <div class="wrap">
+    <span class="tag rv">Suivez-nous</span>
+    <a class="insta-handle rv" href="https://www.instagram.com/alexis.barber62/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="#fff"/></svg>@alexis.barber62
+    </a>
+    <div class="insta-grid rv">
+      <a href="https://www.instagram.com/alexis.barber62/" target="_blank" rel="noopener" aria-label="Voir sur Instagram"><div class="ph"><img src="images/coupe-1.jpg" alt="" loading="lazy" onerror="this.remove()"></div></a>
+      <a href="https://www.instagram.com/alexis.barber62/" target="_blank" rel="noopener" aria-label="Voir sur Instagram"><div class="ph"><img src="images/coupe-2.jpg" alt="" loading="lazy" onerror="this.remove()"></div></a>
+      <a href="https://www.instagram.com/alexis.barber62/" target="_blank" rel="noopener" aria-label="Voir sur Instagram"><div class="ph"><img src="images/coupe-3.jpg" alt="" loading="lazy" onerror="this.remove()"></div></a>
+      <a href="https://www.instagram.com/alexis.barber62/" target="_blank" rel="noopener" aria-label="Voir sur Instagram"><div class="ph"><img src="images/coupe-4.jpg" alt="" loading="lazy" onerror="this.remove()"></div></a>
+    </div>
+    <a href="https://www.instagram.com/alexis.barber62/" target="_blank" rel="noopener" class="btn btn-accent">Suivre sur Instagram</a>
   </div>
 </section>
 
@@ -359,6 +464,8 @@
     <p class="copy">© <span id="y"></span> Alexis Barber · Tous droits réservés</p>
   </div>
 </footer>
+
+<a href="https://www.instagram.com/alexis.barber62/" target="_blank" rel="noopener">Instagram</a>
 
 <a href="https://www.planity.com/alexis-barber-62000-arras" target="_blank" rel="noopener" class="fab" id="fab" aria-label="Réserver">✂</a>
 
@@ -388,6 +495,6 @@
 
 <div class="progress" id="progress" aria-hidden="true"></div>
 
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>
