@@ -1,0 +1,12 @@
+{
+  "name": "Alexis Barber",
+  "short_name": "Alexis Barber",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "icons": [
+    { "src": "images/logo.png", "sizes": "any", "type": "image/png", "purpose": "any" }
+  ]
+}
