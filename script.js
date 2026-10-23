@@ -157,7 +157,7 @@ function initHex() {
 }
 
 // ===== Horaires + néon Ouvert/Fermé =====
-const HOURS = { 0: null, 1: [10, 20], 2: [10, 20], 3: [10, 20], 4: [10, 20], 5: [10, 23], 6: [10, 20] };
+const HOURS = { 0: null, 1: [10, 20], 2: [10, 20], 3: [10, 20], 4: [10, 20], 5: [10, 20], 6: [10, 20] };
 const DAYS = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 const now = new Date(), d = now.getDay(), h = now.getHours() + now.getMinutes() / 60;
 const ul = document.getElementById('hours');
@@ -324,3 +324,59 @@ const SHOPS = [
     c.textContent = i >= 0 ? `${pad(i + 1)} / ${pad(list.length)}` : '';
   }).observe(img, { attributes: true, attributeFilter: ['src'] });
 })();
+
+// ================== V6 : avis + réservation directe ==================
+
+// ----- Les avis (👉 pour en ajouter un : copier une ligne et changer la note et le texte) -----
+const REVIEWS = [
+  { r: 4.8, t: "Très bien accueilli, c’était une première fois pour mon fils dans ce salon, et il est reparti plus que satisfait. Merci à son coiffeur en particulier qui a su être à l’écoute et faire ce qu’il voulait." },
+  { r: 5,   t: "Je reviendrai, il n’y a pas photo : ce sont les meilleurs !" },
+  { r: 5,   t: "Au top, comme d’hab !" },
+  { r: 5,   t: "Ambiance super sympa, mon fils adore." },
+  { r: 5,   t: "Coupe parfaite, salon très propre et très bonne ambiance. Je reconseille !" }
+];
+
+(() => {
+  const track = document.getElementById('revTrack'), dots = document.getElementById('revDots');
+  const prev = document.getElementById('revPrev'), next = document.getElementById('revNext');
+  if (!track) return;
+  const fr = n => String(n).replace('.', ',');
+
+  track.innerHTML = REVIEWS.map((v, i) => `
+    <article class="rev" aria-label="Avis ${i + 1} sur ${REVIEWS.length}">
+      <div class="rev-top"><span class="rstars" style="--r:${v.r}" aria-label="${fr(v.r)} sur 5">★★★★★</span><b>${fr(v.r)}</b></div>
+      <p>${v.t}</p>
+      <span class="rev-src">Avis client · Planity</span>
+    </article>`).join('');
+
+  const cards = [...track.children];
+  const gap = () => parseFloat(getComputedStyle(track).columnGap) || 0;
+  const step = () => cards[0].getBoundingClientRect().width + gap();
+  const visible = () => Math.max(1, Math.round((track.clientWidth + gap()) / step()));
+  let pages = 0;
+
+  const update = () => {
+    const i = Math.round(track.scrollLeft / step());
+    [...dots.children].forEach((b, k) => b.classList.toggle('on', k === i));
+    if (prev) prev.disabled = track.scrollLeft < 5;
+    if (next) next.disabled = track.scrollLeft > track.scrollWidth - track.clientWidth - 5;
+  };
+  const buildDots = () => {
+    const p = Math.max(1, cards.length - visible() + 1);
+    if (p !== pages) {
+      pages = p;
+      dots.innerHTML = p > 1 ? Array.from({ length: p }, (_, i) => `<button aria-label="Aller à l'avis ${i + 1}"></button>`).join('') : '';
+      [...dots.children].forEach((b, i) => b.addEventListener('click', () => track.scrollTo({ left: i * step() })));
+    }
+    update();
+  };
+
+  prev?.addEventListener('click', () => track.scrollBy({ left: -step() }));
+  next?.addEventListener('click', () => track.scrollBy({ left: step() }));
+  let t; track.addEventListener('scroll', () => { cancelAnimationFrame(t); t = requestAnimationFrame(update); }, { passive: true });
+  addEventListener('resize', buildDots);
+  buildDots();
+})();
+
+// ----- Les boutons "Réserver à …" de l'équipe vont directement au bon salon -----
+document.querySelectorAll('a[data-direct]').forEach(a => a.addEventListener('click', e => e.stopPropagation()));
