@@ -732,11 +732,11 @@ body.menu-open .nav{backdrop-filter:none;-webkit-backdrop-filter:none;background
 .barber i img{position:absolute;top:3px;left:3px;width:calc(100% - 6px);height:calc(100% - 6px);border-radius:50%;object-fit:cover;object-position:50% var(--y,25%)}
 @media (max-width:600px){.barber i{width:56px;height:56px;flex-basis:56px;font-size:1.05rem}}
 
-/* ===== v8 · Photos coupes au format post Instagram ===== */
+/* ===== v9 · Galerie au format post Instagram (4:5) ===== */
 :root{--coupe-ratio:4/5}
 
-/* Galerie : grille régulière en portrait (3 colonnes, 2 sur mobile) */
-section :has(> :is(figure,a,div,li,button) > img[src*="images/coupe-"]):not(.insta-grid){
+/* La grille : l'élément dont le 4e enfant contient une photo coupe */
+:is(section,div,ul):has(> :nth-child(4) img[src*="coupe-"]):not(.insta-grid){
   display:grid !important;
   grid-template-columns:repeat(3,1fr) !important;
   grid-auto-rows:auto !important;
@@ -745,28 +745,32 @@ section :has(> :is(figure,a,div,li,button) > img[src*="images/coupe-"]):not(.ins
   height:auto !important;
 }
 
-/* Chaque case : cadre portrait, on annule les anciennes tailles et fusions de cases */
-section :is(figure,a,div,li,button):has(> img[src*="images/coupe-"]):not(:is([class*="lightbox"],[id*="lightbox"],[class*="lb"],[id*="lb"]) *){
+/* Les cases : on annule les grandes cases et les cases fusionnées */
+:is(section,div,ul):has(> :nth-child(4) img[src*="coupe-"]):not(.insta-grid) > *{
+  grid-row:auto !important;
+  grid-column:auto !important;
+  height:auto !important;
+  min-height:0 !important;
+  aspect-ratio:auto !important;
+}
+
+/* Le cadre direct de chaque photo passe en portrait */
+:is(section,div,ul):has(> :nth-child(4) img[src*="coupe-"]) :has(> img[src*="coupe-"]){
   aspect-ratio:var(--coupe-ratio) !important;
   height:auto !important;
   min-height:0 !important;
-  grid-row:auto !important;
-  grid-column:auto !important;
   overflow:hidden;
 }
-section :is(figure,a,div,li,button) > img[src*="images/coupe-"]:not(:is([class*="lightbox"],[id*="lightbox"],[class*="lb"],[id*="lb"]) *){
+:is(section,div,ul):has(> :nth-child(4) img[src*="coupe-"]) img[src*="coupe-"]{
+  position:static !important;
   width:100% !important;
   height:100% !important;
   object-fit:cover;
   object-position:50% 50%;
 }
 
-/* Grille Instagram : même format portrait, 4 colonnes */
-.insta-grid{grid-template-columns:repeat(4,1fr) !important;grid-auto-rows:auto !important}
-.insta-grid > *{aspect-ratio:var(--coupe-ratio) !important;height:auto !important}
-.insta-grid img{width:100%;height:100%;object-fit:cover}
-
 @media (max-width:700px){
-  section :has(> :is(figure,a,div,li,button) > img[src*="images/coupe-"]):not(.insta-grid){grid-template-columns:repeat(2,1fr) !important}
-  .insta-grid{grid-template-columns:repeat(2,1fr) !important}
+  :is(section,div,ul):has(> :nth-child(4) img[src*="coupe-"]):not(.insta-grid){
+    grid-template-columns:repeat(2,1fr) !important;
+  }
 }
