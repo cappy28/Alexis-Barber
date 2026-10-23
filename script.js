@@ -215,78 +215,112 @@ lb.addEventListener('touchend', e => {
 
 document.getElementById('y').textContent = new Date().getFullYear();
 
-/* =========================================================
-   V5 : CHOIX DU SALON · BARRE MOBILE · PROGRESSION · MENU ACTIF
-   ========================================================= */
+// ================== V5 : améliorations ==================
 
-/* ----- Barre de progression LED ----- */
-.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:150;pointer-events:none;
-  transform-origin:0 50%;transform:scaleX(0);background:#fff;
-  box-shadow:0 0 6px #fff,0 0 14px rgba(255,255,255,.7)}
+// ----- Les deux salons (👉 modifier ici si une info change) -----
+const SHOPS = [
+  { num: 'I',  name: 'Saint-Aubert', addr: '70 Rue Saint-Aubert, 62000 Arras', note: '★ 4,9', book: 'https://www.planity.com/alexis-barber-62000-arras' },
+  { num: 'II', name: 'Gambetta',     addr: '62 Rue Gambetta, 62000 Arras',     note: '★ 5,0', book: 'https://www.planity.com/alexis-barber-2-62000-arras' }
+];
 
-/* ----- Menu : section active soulignée ----- */
-.links a:not(.btn){position:relative}
-.links a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:2px;border-radius:2px;
-  background:#fff;box-shadow:0 0 8px #fff,0 0 16px rgba(255,255,255,.6);transform:scaleX(0);transition:transform .45s var(--ease)}
-.links a.active{color:#fff}
-.links a.active::after{transform:scaleX(1)}
+// ----- Panneau "Dans quel salon ?" -----
+(() => {
+  const sheet = document.getElementById('sheet'); if (!sheet) return;
+  const panel = sheet.querySelector('.sheet-panel'), list = document.getElementById('sheetList'),
+        title = document.getElementById('sheetTitle'), note = document.getElementById('sheetNote');
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const mapUrl = a => isIOS
+    ? `https://maps.apple.com/?daddr=${encodeURIComponent(a)}`
+    : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(a)}`;
+  let lastFocus = null;
 
-/* ----- Panneau "Dans quel salon ?" ----- */
-.sheet{position:fixed;inset:0;z-index:600;visibility:hidden;pointer-events:none;transition:visibility 0s .5s}
-.sheet.open{visibility:visible;pointer-events:auto;transition-delay:0s}
-.sheet-bg{position:absolute;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .4s var(--ease)}
-.sheet.open .sheet-bg{opacity:1}
-.sheet-panel{position:absolute;left:50%;top:50%;width:min(480px,92vw);padding:42px 32px 28px;border-radius:26px;
-  background:#0b0b0b;border:1px solid #222;box-shadow:0 40px 100px #000;
-  opacity:0;transform:translate(-50%,-46%) scale(.96);transition:transform .5s var(--ease),opacity .4s var(--ease)}
-.sheet-panel::before{content:"";position:absolute;inset:5px;border-radius:21px;border:2px solid #fff;box-shadow:var(--led);opacity:.9;pointer-events:none}
-.sheet.open .sheet-panel{opacity:1;transform:translate(-50%,-50%)}
-.sheet h3{font-weight:900;font-size:1.7rem;line-height:1.1;text-transform:uppercase;letter-spacing:-.01em;margin:10px 0 22px}
-.sheet-list{display:grid;gap:12px;position:relative;z-index:1}
-.pick{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:18px;background:#121212;border:1px solid #262626;transition:border-color .3s,box-shadow .3s}
-.pick:hover,.pick:focus-visible{border-color:#fff;box-shadow:var(--led);outline:none}
-.pick:active{transform:scale(.98)}
-.pick-num{width:44px;height:44px;flex:none;border-radius:50%;display:grid;place-items:center;border:2px solid #fff;font-weight:900;font-size:.85rem;box-shadow:0 0 8px rgba(255,255,255,.5),inset 0 0 6px rgba(255,255,255,.3)}
-.pick-txt{flex:1;display:flex;flex-direction:column;line-height:1.35;min-width:0}
-.pick-txt b{font-weight:800;text-transform:uppercase;letter-spacing:.05em}
-.pick-txt small{color:var(--muted);font-size:.78rem}
-.pick-go{font-size:1.3rem;transition:transform .3s var(--ease)}
-.pick:hover .pick-go{transform:translateX(5px)}
-.sheet-grip{display:none;width:44px;height:5px;border-radius:3px;background:#3a3a3a;margin:0 auto 20px}
-.sheet-x{position:absolute;top:18px;right:18px;z-index:2;width:40px;height:40px;border-radius:50%;background:none;border:1px solid #333;color:#fff;cursor:pointer;transition:.3s}
-.sheet-x:hover{border-color:#fff;box-shadow:var(--led)}
-.sheet-note{margin-top:20px;text-align:center;font-size:.64rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5a5a5a}
+  const open = mode => {
+    const book = mode === 'book';
+    title.textContent = book ? 'Dans quel salon ?' : 'Quel salon rejoindre ?';
+    note.textContent = book ? 'Réservation via Planity · confirmation immédiate' : "S'ouvre dans votre application de cartes";
+    list.innerHTML = SHOPS.map(s => `
+      <a class="pick" href="${book ? s.book : mapUrl(s.addr)}" target="_blank" rel="noopener">
+        <span class="pick-num">${s.num}</span>
+        <span class="pick-txt"><b>${s.name}</b><small>${s.addr}${book ? ' · ' + s.note : ''}</small></span>
+        <span class="pick-go">→</span>
+      </a>`).join('');
+    lastFocus = document.activeElement;
+    sheet.classList.add('open'); sheet.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (matchMedia('(hover:hover)').matches) setTimeout(() => list.querySelector('a')?.focus({ preventScroll: true }), 350);
+  };
+  const close = () => {
+    sheet.classList.remove('open'); sheet.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    panel.style.transform = '';
+    lastFocus?.focus?.({ preventScroll: true });
+  };
 
-/* ----- Compteur galerie ----- */
-.lb-count{position:absolute;top:34px;left:50%;transform:translateX(-50%);font-size:.72rem;font-weight:700;letter-spacing:.3em;color:#9a9a9a}
+  // Tous les boutons "Réserver" ouvrent le choix (sauf ceux des cartes salon, déjà précis)
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href*="planity.com"]');
+    if (!a || a.closest('.shop, .sheet')) return;
+    e.preventDefault(); open('book');
+  });
+  document.getElementById('dockMap')?.addEventListener('click', e => { e.preventDefault(); open('map'); });
+  sheet.addEventListener('click', e => {
+    if (e.target.closest('[data-close]')) close();
+    else if (e.target.closest('.pick')) setTimeout(close, 300);
+  });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.classList.contains('open')) close(); });
 
-/* ----- Barre d'actions mobile ----- */
-.dock{display:none}
+  // Glisser vers le bas pour fermer (téléphone)
+  const small = matchMedia('(max-width:640px)');
+  let y0 = null, dy = 0;
+  panel.addEventListener('touchstart', e => {
+    if (!small.matches) return;
+    y0 = e.touches[0].clientY; dy = 0; panel.style.transition = 'none';
+  }, { passive: true });
+  panel.addEventListener('touchmove', e => {
+    if (y0 === null) return;
+    dy = Math.max(0, e.touches[0].clientY - y0);
+    panel.style.transform = `translateY(${dy}px)`;
+  }, { passive: true });
+  panel.addEventListener('touchend', () => {
+    if (y0 === null) return;
+    panel.style.transition = ''; y0 = null;
+    if (dy > 90) close(); else panel.style.transform = '';
+  });
+})();
 
-@media (max-width:640px){
-  .fab{display:none}
-  .dock{display:grid;grid-template-columns:1fr 1.5fr 1fr;align-items:center;gap:4px;
-    position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:95;
-    padding:6px;border-radius:999px;background:rgba(12,12,12,.9);
-    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-    border:1px solid #2a2a2a;box-shadow:0 18px 40px rgba(0,0,0,.65);
-    transform:translateY(170%);transition:transform .55s var(--ease)}
-  .dock.show{transform:none}
-  .dock a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 0;font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#cfcfcf}
-  .dock a:active{color:#fff}
-  .dock svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .dock .dock-main{flex-direction:row;justify-content:center;gap:8px;padding:15px 0;border-radius:999px;font-size:.72rem;letter-spacing:.16em;color:#111;
-    background:linear-gradient(180deg,var(--accent-2),var(--accent) 50%,var(--accent-3));box-shadow:0 0 16px rgba(var(--accent-rgb),.4),inset 0 1px 0 rgba(255,255,255,.6)}
-  footer{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+// ----- Barre de progression + barre mobile + menu actif -----
+(() => {
+  const dock = document.getElementById('dock'), bar = document.getElementById('progress');
+  const tick = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    if (bar) bar.style.transform = `scaleX(${max > 0 ? Math.min(scrollY / max, 1) : 0})`;
+    if (dock) dock.classList.toggle('show', scrollY > 500);
+  };
+  let ticking = false;
+  addEventListener('scroll', () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => { tick(); ticking = false; });
+  }, { passive: true });
+  addEventListener('resize', tick); tick();
 
-  /* Le panneau devient une "bottom sheet" */
-  .sheet-panel{left:0;right:0;top:auto;bottom:0;width:auto;opacity:1;border-radius:26px 26px 0 0;
-    padding:12px 18px calc(24px + env(safe-area-inset-bottom));transform:translateY(105%)}
-  .sheet-panel::before{border-radius:21px 21px 0 0;bottom:-10px}
-  .sheet.open .sheet-panel{transform:none}
-  .sheet-grip{display:block}
-  .sheet-x{display:none}
-  .sheet h3{font-size:1.45rem;margin-bottom:18px}
-  .pick{padding:16px}
-  .lb-count{top:28px}
-}
+  const navLinks = [...document.querySelectorAll('.links a[href^="#"]')];
+  const spy = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  navLinks.forEach(a => { const s = document.querySelector(a.getAttribute('href')); if (s) spy.observe(s); });
+  const hero = document.getElementById('top'); if (hero) spy.observe(hero);
+})();
+
+// ----- Compteur dans la galerie plein écran -----
+(() => {
+  const box = document.getElementById('lightbox'); if (!box) return;
+  const img = box.querySelector('img'), c = document.createElement('p');
+  c.className = 'lb-count'; box.appendChild(c);
+  const pad = n => String(n).padStart(2, '0');
+  new MutationObserver(() => {
+    const list = [...document.querySelectorAll('.g img')];
+    const i = list.findIndex(x => x.src === img.src);
+    c.textContent = i >= 0 ? `${pad(i + 1)} / ${pad(list.length)}` : '';
+  }).observe(img, { attributes: true, attributeFilter: ['src'] });
+})();
