@@ -719,3 +719,15 @@ body.menu-open .nav{backdrop-filter:none;-webkit-backdrop-filter:none;background
   .barber:hover{border-color:#1e1e1e;box-shadow:none}
   .insta-grid a::after{display:none}
 }
+
+/* ===== v7 · Photo d'équipe : cadre plus haut, têtes entières ===== */
+.team-photo{height:auto;aspect-ratio:16/9;min-height:0}
+.team-photo .ph img{width:100%;height:100%;object-fit:cover;object-position:50% var(--team-y,12%)}
+.team-photo .ph::after{background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.35) 20%,rgba(0,0,0,0) 40%)}
+@media (max-width:900px){.team-photo{aspect-ratio:4/3}}
+@media (max-width:600px){.team-photo{aspect-ratio:1/1}}
+
+/* ===== v7 · Portraits des barbiers dans les anneaux LED ===== */
+.barber i{position:relative;width:64px;height:64px;flex:0 0 64px;font-size:1.2rem}
+.barber i img{position:absolute;top:3px;left:3px;width:calc(100% - 6px);height:calc(100% - 6px);border-radius:50%;object-fit:cover;object-position:50% var(--y,25%)}
+@media (max-width:600px){.barber i{width:56px;height:56px;flex-basis:56px;font-size:1.05rem}}
